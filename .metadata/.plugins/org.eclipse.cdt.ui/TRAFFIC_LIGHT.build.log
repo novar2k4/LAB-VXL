@@ -1,0 +1,10 @@
+15:10:33 **** Incremental Build of configuration Debug for project TRAFFIC_LIGHT ****
+make -j8 all 
+arm-none-eabi-size   TRAFFIC_LIGHT.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4620	     20	   1572	   6212	   1844	TRAFFIC_LIGHT.elf
+Finished building: default.size.stdout
+ 
+
+15:10:33 Build Finished. 0 errors, 0 warnings. (took 155ms)
+
