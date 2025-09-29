@@ -1,10 +1,29 @@
-21:59:15 **** Incremental Build of configuration Debug for project Analog_Clock ****
+14:28:55 **** Incremental Build of configuration Debug for project Analog_Clock ****
 make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:113:8: warning: 'setNumberOnClock' defined but not used [-Wunused-function]
+  113 |   void setNumberOnClock(int num){
+      |        ^~~~~~~~~~~~~~~~
+../Core/Src/main.c:108:8: warning: 'clearAllClock' defined but not used [-Wunused-function]
+  108 |   void clearAllClock(){
+      |        ^~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Analog_Clock.elf" @"objects.list"   -mcpu=cortex-m3 -T"F:\Coding Apps\STM32\STM32CudeIDE 1.7\Workspace\LAB1\Analog_Clock\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Analog_Clock.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Analog_Clock.elf
+ 
 arm-none-eabi-size   Analog_Clock.elf 
+arm-none-eabi-objdump -h -S  Analog_Clock.elf  > "Analog_Clock.list"
+arm-none-eabi-objcopy  -O ihex  Analog_Clock.elf  "Analog_Clock.hex"
    text	   data	    bss	    dec	    hex	filename
-   4892	     20	   1572	   6484	   1954	Analog_Clock.elf
+   4896	     20	   1572	   6488	   1958	Analog_Clock.elf
+arm-none-eabi-objcopy  -O binary  Analog_Clock.elf  "Analog_Clock.bin"
 Finished building: default.size.stdout
  
+Finished building: Analog_Clock.hex
+Finished building: Analog_Clock.bin
+ 
+Finished building: Analog_Clock.list
+ 
+ 
 
-21:59:15 Build Finished. 0 errors, 0 warnings. (took 162ms)
+14:28:56 Build Finished. 0 errors, 2 warnings. (took 617ms)
 

@@ -118,30 +118,38 @@ int main(void)
 	  HAL_GPIO_WritePin(GPIOA, PINS[num], RESET);
   }
   void Show_Time(int hour, int minute, int second) {
-	  clearAllClock();
-      int h_pos = hour % 12;           // 0–11
-      int m_pos = (minute / 5) % 12;   // 60 min / 12 = 5 min per LED
-      int s_pos = (second / 5) % 12;   // 60 sec / 12 = 5 sec per LED
-
-      HAL_GPIO_WritePin(GPIOA, PINS[h_pos],SET);
-      HAL_GPIO_WritePin(GPIOA, PINS[m_pos],SET);
-      HAL_GPIO_WritePin(GPIOA, PINS[s_pos],SET);
+      HAL_GPIO_WritePin(GPIOA, PINS[hour],SET);
+      HAL_GPIO_WritePin(GPIOA, PINS[minute],SET);
+      HAL_GPIO_WritePin(GPIOA, PINS[second],SET);
   }
-  int count=0;
-  int hour =8, minute =10, second =0;
+  int hour =8, minute =53, second =0;
   while (1)
   {
+	  int h_pos = hour % 12;
+	  int m_pos = (minute / 5) % 12;
+	  int s_pos = (second / 5) % 12;
     /* USER CODE END WHILE */
-	  Show_Time(hour,minute,second);
+	  Show_Time(h_pos,m_pos,s_pos);
 //	  if(count>11) count = 0;
 //	  clearAllClock();
 //	  HAL_GPIO_WritePin(GPIOA, PINS[count], SET);
 //	  count++;
-	  HAL_Delay(1000);
+	  HAL_Delay(10);
+	  clearNumberOnClock(s_pos);
 	  second++;
-	  if (second >= 60) { second = 0; minute++; }
-	  if (minute >= 60) { minute = 0; hour++; }
-	  if (hour >= 12)   { hour = 0; }
+	  if (second >= 60) {
+		  second = 0;
+		  clearNumberOnClock(m_pos);
+		  minute++;
+	  }
+	  if (minute >= 60) {
+		  minute = 0;
+		  clearNumberOnClock(h_pos);
+		  hour++;
+	  }
+	  if (hour >= 12)   {
+		  hour = 0;
+	  }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

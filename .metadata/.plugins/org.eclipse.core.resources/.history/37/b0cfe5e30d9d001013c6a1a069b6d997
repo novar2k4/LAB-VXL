@@ -1,0 +1,477 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body
+  ******************************************************************************
+  * @attention
+  *
+  * <h2><center>&copy; Copyright (c) 2025 STMicroelectronics.
+  * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include "software_timer.h"
+/* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+TIM_HandleTypeDef htim2;
+
+/* USER CODE BEGIN PV */
+
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_TIM2_Init(void);
+/* USER CODE BEGIN PFP */
+
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
+	#define SEG_PORT GPIOB
+	#define SEG_A    GPIO_PIN_0
+	#define SEG_B    GPIO_PIN_1
+	#define SEG_C    GPIO_PIN_2
+	#define SEG_D    GPIO_PIN_3
+	#define SEG_E    GPIO_PIN_4
+	#define SEG_F    GPIO_PIN_5
+	#define SEG_G    GPIO_PIN_6
+	static const uint8_t SEG_CC_PATTERN[10] = {
+			/*0*/ 0b0111111,  // a b c d e f
+			/*1*/ 0b0000110,  // b c
+			/*2*/ 0b1011011,  // a b d e g
+			/*3*/ 0b1001111,  // a b c d g
+			/*4*/ 0b1100110,  // b c f g
+			/*5*/ 0b1101101,  // a c d f g
+			/*6*/ 0b1111101,  // a c d e f g
+			/*7*/ 0b0000111,  // a b c
+			/*8*/ 0b1111111,  // a b c d e f g
+			/*9*/ 0b1101111   // a b c d f g
+	};
+	static const uint16_t SEG_PINS[7] = {SEG_A, SEG_B, SEG_C, SEG_D, SEG_E, SEG_F, SEG_G};
+
+	void display7SEG(int num)
+	{
+		if (num < 0 || num > 9) {  // invalid → turn all OFF
+			HAL_GPIO_WritePin(SEG_PORT,SEG_A|SEG_B|SEG_C|SEG_D|SEG_E|SEG_F|SEG_G, SET); // OFF for common-anode
+			return;
+		}
+
+		uint8_t pat = SEG_CC_PATTERN[num];  // 1 bits mean "segment ON" (CC logic)
+
+		// Write each segment: ON→RESET, OFF→SET for common-anode
+		for (int i = 0; i < 7; ++i) {
+			GPIO_PinState level = (pat & (1u << i)) ? GPIO_PIN_RESET  // ON
+													: GPIO_PIN_SET;   // OFF
+			HAL_GPIO_WritePin(SEG_PORT, SEG_PINS[i], level);
+		}
+	}
+  /* USER CODE END 1 */
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_TIM2_Init();
+  /* USER CODE BEGIN 2 */
+  HAL_TIM_Base_Start_IT (& htim2 ) ;
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  void enable(int ena){
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9, GPIO_PIN_SET);
+	  switch(ena){
+	  case 1:
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+		  break;
+	  case 2:
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+		  break;
+	  case 3:
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+		  break;
+	  case 4:
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
+		  break;
+	  default:
+		  break;
+  	  }
+  }
+
+  //////////////
+  void transpose8x8_rows_to_cols(const uint8_t rows[8], uint8_t cols[8]){
+      for (int c = 0; c < 8; ++c){
+          uint8_t colBits = 0;
+          for (int r = 0; r < 8; ++r){
+              if (rows[r] & (1u << c)) colBits |= (1u << r);
+          }
+          cols[c] = colBits;
+      }
+  }
+  uint8_t rows8[8] = {
+		 0b00000000,  // Row 0: top of A
+		 0b00000000,  // Row 1
+		 0b00110000,  // Row 2
+		 0b01001000,  // Row 3: vertical legs
+		 0b01111000,  // Row 4: horizontal bar of A
+		 0b01001000,  // Row 5
+		 0b01001000,  // Row 6
+		 0b00000000   // Row 7: empty bottom row
+		};
+//  uint8_t matrix_buffer[8];
+//  transpose8x8_rows_to_cols(rows8, matrix_buffer);
+
+#define time3 4
+#define time4 10
+  int status = 1;
+  setTimer1(25);
+  setTimer2(100);
+  setTimer3(time3);
+  setTimer4(time4);
+  int led_buffer[4];
+  int hour = 15, minute = 8, second = 58;
+  int matrix_index = 0;
+  ////////////////
+  void updateClockBuffer(void) {
+      led_buffer[0] = hour / 10;  // Tens of hour
+      led_buffer[1] = hour % 10;  // Ones of hour
+      led_buffer[2] = minute / 10;  // Tens of minute
+      led_buffer[3] = minute % 10;  // Ones of minute
+  }
+  void Update_Time(){
+	  if (second >= 60) {
+		  second = 0;
+		  minute++;
+	  }
+	  if (minute >= 60) {
+		  minute = 0;
+		  hour++;
+	  }
+	  if (hour >= 24) {
+		  hour = 0;
+	  }
+  }
+  void matrix_disable_all_columns(){
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 |GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15, GPIO_PIN_SET);
+  }
+  void matrix_enable_column(int idx) {
+//	  matrix_disable_all_columns();
+      if (idx == 0) {
+          HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
+      } else if (idx == 1) {
+          HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_RESET);
+      } else if (idx >= 2 && idx <= 7) {
+          HAL_GPIO_WritePin(GPIOA, (GPIO_PIN_10 << (idx - 2)), GPIO_PIN_RESET);
+      }
+  }
+  void matrix_write_rows(int val) {
+      for (int i = 0; i < 8; i++) {
+          GPIO_PinState row_state = (val & (1 << i)) ? GPIO_PIN_RESET : GPIO_PIN_SET;
+          HAL_GPIO_WritePin(GPIOB, (GPIO_PIN_8 << i), row_state);
+      }
+  }
+
+  void updateLEDMatrix(int index) {
+      if (index < 0 || index >= 8) return;
+      matrix_disable_all_columns();
+      matrix_write_rows(rows8[index]);
+      matrix_enable_column(index);
+  }
+  void shift_matrix_left_insert_blank(uint8_t buf[8]){
+      for (int c = 0; c < 7; ++c) buf[c] = buf[c+1];
+      buf[7] = 0x00;
+  }
+  void shift_matrix_left_circular(uint8_t buf[8]){
+      uint8_t first = buf[0];
+      for (int c = 0; c < 7; c++){
+          buf[c] = buf[c+1];
+      }
+      buf[7] = first;
+  }
+  void shiftMatrix(uint8_t buf[8]) {
+      for (int i = 0; i < 8; i++) {
+          uint8_t msb = (buf[i] & 0x80) >> 7;
+          buf[i] = (buf[i] << 1) | msb;
+      }
+  }
+  while (1)
+  {
+	  if (timer4_flag){
+		  shift_matrix_left_circular(rows8);
+//	      shift_matrix_left_insert_blank(rows8);
+//		  shiftMatrix(rows8);
+	      setTimer4(time4);
+	  }
+	  if (timer3_flag == 1){
+		  updateLEDMatrix(matrix_index);
+		  matrix_index = (matrix_index + 1) % 8;
+		  setTimer3(time3);
+	  }
+//	  if(timer2_flag == 1){
+//		  second++;
+//		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_4);
+//		  setTimer2(100);
+//	  }
+//	  Update_Time();
+//	  updateClockBuffer();
+//	  if(timer1_flag==1){
+//	  		  switch(status){
+//	  		  	  case 1:
+//	  		  		  display7SEG(led_buffer[0]);
+//	  		  		  enable(status);
+//	  		  		  status = 2	;
+//	  			  break;
+//	  		  	  case 2:
+//	  		  		  display7SEG(led_buffer[1]);
+//	  		  		  enable(status);
+//	  		  		  status = 3	;
+//	  		  		  break;
+//	  		  	  case 3:
+//					  display7SEG(led_buffer[2]);
+//					  enable(status);
+//					  status = 4	;
+//					  break;
+//	  		  	  case 4:
+//					  display7SEG(led_buffer[3]);
+//					  enable(status);
+//					  status = 1	;
+//					  break;
+//	  		  	  default:
+//	  		  		  break;
+//	  		  }
+//	  		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+//	  		  setTimer1(25);
+//	  }
+  }
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+
+  /* USER CODE END 3 */
+}
+
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
+void SystemClock_Config(void)
+{
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  /** Initializes the RCC Oscillators according to the specified parameters
+  * in the RCC_OscInitTypeDef structure.
+  */
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /** Initializes the CPU, AHB and APB buses clocks
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
+
+/**
+  * @brief TIM2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM2_Init(void)
+{
+
+  /* USER CODE BEGIN TIM2_Init 0 */
+
+  /* USER CODE END TIM2_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM2_Init 1 */
+
+  /* USER CODE END TIM2_Init 1 */
+  htim2.Instance = TIM2;
+  htim2.Init.Prescaler = 7999;
+  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim2.Init.Period = 9;
+  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM2_Init 2 */
+
+  /* USER CODE END TIM2_Init 2 */
+
+}
+
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5
+                          |GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9
+                          |GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13
+                          |GPIO_PIN_14|GPIO_PIN_15, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_10
+                          |GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14
+                          |GPIO_PIN_15|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5
+                          |GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : PA2 PA3 PA4 PA5
+                           PA6 PA7 PA8 PA9
+                           PA10 PA11 PA12 PA13
+                           PA14 PA15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5
+                          |GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9
+                          |GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13
+                          |GPIO_PIN_14|GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PB0 PB1 PB2 PB10
+                           PB11 PB12 PB13 PB14
+                           PB15 PB3 PB4 PB5
+                           PB6 PB7 PB8 PB9 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_10
+                          |GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14
+                          |GPIO_PIN_15|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5
+                          |GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+}
+
+/* USER CODE BEGIN 4 */
+void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim ){
+	timerRun();
+}
+/* USER CODE END 4 */
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
+void Error_Handler(void)
+{
+  /* USER CODE BEGIN Error_Handler_Debug */
+  /* User can add his own implementation to report the HAL error return state */
+  __disable_irq();
+  while (1)
+  {
+  }
+  /* USER CODE END Error_Handler_Debug */
+}
+
+#ifdef  USE_FULL_ASSERT
+/**
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
+void assert_failed(uint8_t *file, uint32_t line)
+{
+  /* USER CODE BEGIN 6 */
+  /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+  /* USER CODE END 6 */
+}
+#endif /* USE_FULL_ASSERT */
+
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

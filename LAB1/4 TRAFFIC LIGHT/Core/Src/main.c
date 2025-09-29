@@ -128,10 +128,15 @@ int main(void)
   typedef enum {GREEN1,YELLOW1,GREEN2,YELLOW2} TrafficState;
   TrafficState state = GREEN1;
   int counter = 0;
-  int seg_counter = 0;
+  int seg_counter = 5;
   while (1)
   {
 	  // --- State Machine ---
+	  	counter++;
+	  	display7SEG(seg_counter--);
+
+
+
 	    switch (state) {
 	    case GREEN1:   // Light 1 = GREEN, Light 2 = RED
 	    	HAL_GPIO_WritePin(LED_YELLOW1_GPIO_Port, LED_YELLOW1_Pin, RESET);
@@ -145,7 +150,7 @@ int main(void)
 	    	HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, RESET);
 	        HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, SET);
 	        HAL_GPIO_WritePin(LED_RED1_GPIO_Port, LED_RED1_Pin, SET);
-	        if (counter >= 2) { counter = 0; state = GREEN2; }
+	        if (counter >= 2) { counter = 0; state = GREEN2; seg_counter = 3; }
 	        break;
 
 	    case GREEN2:   // Light 2 = GREEN, Light 1 = RED
@@ -153,22 +158,19 @@ int main(void)
 	        HAL_GPIO_WritePin(LED_RED1_GPIO_Port, LED_RED1_Pin, RESET);
 	        HAL_GPIO_WritePin(LED_GREEN1_GPIO_Port, LED_GREEN1_Pin, SET);
 	        HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, SET);
-	        if (counter >= 3) { counter = 0; state = YELLOW2; }
+	        if (counter >= 3) { counter = 0; state = YELLOW2; seg_counter = 2; }
 	        break;
 
 	    case YELLOW2:  // Light 2 = YELLOW, Light 1 = RED
 	    	HAL_GPIO_WritePin(LED_GREEN1_GPIO_Port, LED_GREEN1_Pin, RESET);
 	        HAL_GPIO_WritePin(LED_YELLOW1_GPIO_Port, LED_YELLOW1_Pin, SET);
 	        HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, SET);
-	        if (counter >= 2) { counter = 0; state = GREEN1; }
+	        if (counter >= 2) { counter = 0; state = GREEN1; seg_counter = 5;}
 	        break;
 	    }
 
 	    // --- Global 1-second tick ---
-	    if (seg_counter >= 10) seg_counter = 0;
-	    display7SEG(seg_counter++);          // show digit
-	    HAL_Delay(1000);  // only ONE delay in whole loop
-	    counter++;
+	    HAL_Delay(1000);
   }
     /* USER CODE END WHILE */
 

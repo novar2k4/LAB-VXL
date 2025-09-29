@@ -1,7 +1,297 @@
-21:59:15 **** Incremental Build of configuration Debug for project Analog_Clock ****
+17:28:37 **** Incremental Build of configuration Debug for project Ex3_Lab2 ****
 make -j8 all 
-arm-none-eabi-size   Analog_Clock.elf 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:237:8: warning: 'shift_matrix_left_circular' defined but not used [-Wunused-function]
+  237 |   void shift_matrix_left_circular(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:233:8: warning: 'shift_matrix_left_insert_blank' defined but not used [-Wunused-function]
+  233 |   void shift_matrix_left_insert_blank(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:155:8: warning: 'transpose8x8_rows_to_cols' defined but not used [-Wunused-function]
+  155 |   void transpose8x8_rows_to_cols(const uint8_t rows[8], uint8_t cols[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Ex3_Lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"F:\Coding Apps\STM32\STM32CudeIDE 1.7\Workspace\LAB-VXL\LAB2\Ex3_Lab2\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ex3_Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+F:\Coding Apps\STM32\STM32CudeIDE 1.7\STM32CudeIDE_1.19.0\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\arm-none-eabi\bin\ld.exe: warning: Ex3_Lab2.elf has a LOAD segment with RWX permissions
+Finished building target: Ex3_Lab2.elf
+ 
+arm-none-eabi-size  Ex3_Lab2.elf 
+arm-none-eabi-objdump -h -S Ex3_Lab2.elf  > "Ex3_Lab2.list"
+arm-none-eabi-objcopy  -O ihex Ex3_Lab2.elf  "Ex3_Lab2.hex"
    text	   data	    bss	    dec	    hex	filename
-   4892	     20	   1572	   6484	   1954	Analog_Clock.elf
+   8460	     20	   1676	  10156	   27ac	Ex3_Lab2.elf
 Finished building: default.size.stdout
+ 
+Finished building: Ex3_Lab2.hex
+ 
+Finished building: Ex3_Lab2.list
+ 
+17:29:05 **** Incremental Build of configuration Debug for project Ex3_Lab2 ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:237:8: warning: 'shift_matrix_left_circular' defined but not used [-Wunused-function]
+  237 |   void shift_matrix_left_circular(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:233:8: warning: 'shift_matrix_left_insert_blank' defined but not used [-Wunused-function]
+  233 |   void shift_matrix_left_insert_blank(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:155:8: warning: 'transpose8x8_rows_to_cols' defined but not used [-Wunused-function]
+  155 |   void transpose8x8_rows_to_cols(const uint8_t rows[8], uint8_t cols[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Ex3_Lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"F:\Coding Apps\STM32\STM32CudeIDE 1.7\Workspace\LAB-VXL\LAB2\Ex3_Lab2\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ex3_Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+F:\Coding Apps\STM32\STM32CudeIDE 1.7\STM32CudeIDE_1.19.0\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\arm-none-eabi\bin\ld.exe: warning: Ex3_Lab2.elf has a LOAD segment with RWX permissions
+Finished building target: Ex3_Lab2.elf
+ 
+arm-none-eabi-size  Ex3_Lab2.elf 
+arm-none-eabi-objdump -h -S Ex3_Lab2.elf  > "Ex3_Lab2.list"
+arm-none-eabi-objcopy  -O ihex Ex3_Lab2.elf  "Ex3_Lab2.hex"
+   text	   data	    bss	    dec	    hex	filename
+   8460	     20	   1676	  10156	   27ac	Ex3_Lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ex3_Lab2.hex
+ 
+Finished building: Ex3_Lab2.list
+ 
+17:29:42 **** Incremental Build of configuration Debug for project Ex3_Lab2 ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:237:8: warning: 'shift_matrix_left_circular' defined but not used [-Wunused-function]
+  237 |   void shift_matrix_left_circular(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:233:8: warning: 'shift_matrix_left_insert_blank' defined but not used [-Wunused-function]
+  233 |   void shift_matrix_left_insert_blank(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:155:8: warning: 'transpose8x8_rows_to_cols' defined but not used [-Wunused-function]
+  155 |   void transpose8x8_rows_to_cols(const uint8_t rows[8], uint8_t cols[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Ex3_Lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"F:\Coding Apps\STM32\STM32CudeIDE 1.7\Workspace\LAB-VXL\LAB2\Ex3_Lab2\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ex3_Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+F:\Coding Apps\STM32\STM32CudeIDE 1.7\STM32CudeIDE_1.19.0\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\arm-none-eabi\bin\ld.exe: warning: Ex3_Lab2.elf has a LOAD segment with RWX permissions
+Finished building target: Ex3_Lab2.elf
+ 
+arm-none-eabi-size  Ex3_Lab2.elf 
+arm-none-eabi-objdump -h -S Ex3_Lab2.elf  > "Ex3_Lab2.list"
+arm-none-eabi-objcopy  -O ihex Ex3_Lab2.elf  "Ex3_Lab2.hex"
+   text	   data	    bss	    dec	    hex	filename
+   8460	     20	   1676	  10156	   27ac	Ex3_Lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ex3_Lab2.hex
+ 
+Finished building: Ex3_Lab2.list
+ 
+17:30:00 **** Incremental Build of configuration Debug for project Ex3_Lab2 ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:237:8: warning: 'shift_matrix_left_circular' defined but not used [-Wunused-function]
+  237 |   void shift_matrix_left_circular(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:233:8: warning: 'shift_matrix_left_insert_blank' defined but not used [-Wunused-function]
+  233 |   void shift_matrix_left_insert_blank(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:155:8: warning: 'transpose8x8_rows_to_cols' defined but not used [-Wunused-function]
+  155 |   void transpose8x8_rows_to_cols(const uint8_t rows[8], uint8_t cols[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Ex3_Lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"F:\Coding Apps\STM32\STM32CudeIDE 1.7\Workspace\LAB-VXL\LAB2\Ex3_Lab2\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ex3_Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+F:\Coding Apps\STM32\STM32CudeIDE 1.7\STM32CudeIDE_1.19.0\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\arm-none-eabi\bin\ld.exe: warning: Ex3_Lab2.elf has a LOAD segment with RWX permissions
+Finished building target: Ex3_Lab2.elf
+ 
+arm-none-eabi-size  Ex3_Lab2.elf 
+arm-none-eabi-objdump -h -S Ex3_Lab2.elf  > "Ex3_Lab2.list"
+arm-none-eabi-objcopy  -O ihex Ex3_Lab2.elf  "Ex3_Lab2.hex"
+   text	   data	    bss	    dec	    hex	filename
+   8460	     20	   1676	  10156	   27ac	Ex3_Lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ex3_Lab2.hex
+ 
+Finished building: Ex3_Lab2.list
+ 
+17:30:31 **** Incremental Build of configuration Debug for project Ex3_Lab2 ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:237:8: warning: 'shift_matrix_left_circular' defined but not used [-Wunused-function]
+  237 |   void shift_matrix_left_circular(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:233:8: warning: 'shift_matrix_left_insert_blank' defined but not used [-Wunused-function]
+  233 |   void shift_matrix_left_insert_blank(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:155:8: warning: 'transpose8x8_rows_to_cols' defined but not used [-Wunused-function]
+  155 |   void transpose8x8_rows_to_cols(const uint8_t rows[8], uint8_t cols[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Ex3_Lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"F:\Coding Apps\STM32\STM32CudeIDE 1.7\Workspace\LAB-VXL\LAB2\Ex3_Lab2\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ex3_Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+F:\Coding Apps\STM32\STM32CudeIDE 1.7\STM32CudeIDE_1.19.0\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\arm-none-eabi\bin\ld.exe: warning: Ex3_Lab2.elf has a LOAD segment with RWX permissions
+Finished building target: Ex3_Lab2.elf
+ 
+arm-none-eabi-size  Ex3_Lab2.elf 
+arm-none-eabi-objdump -h -S Ex3_Lab2.elf  > "Ex3_Lab2.list"
+arm-none-eabi-objcopy  -O ihex Ex3_Lab2.elf  "Ex3_Lab2.hex"
+   text	   data	    bss	    dec	    hex	filename
+   8460	     20	   1676	  10156	   27ac	Ex3_Lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ex3_Lab2.hex
+ 
+Finished building: Ex3_Lab2.list
+ 
+17:30:42 **** Incremental Build of configuration Debug for project Ex3_Lab2 ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:237:8: warning: 'shift_matrix_left_circular' defined but not used [-Wunused-function]
+  237 |   void shift_matrix_left_circular(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:233:8: warning: 'shift_matrix_left_insert_blank' defined but not used [-Wunused-function]
+  233 |   void shift_matrix_left_insert_blank(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:155:8: warning: 'transpose8x8_rows_to_cols' defined but not used [-Wunused-function]
+  155 |   void transpose8x8_rows_to_cols(const uint8_t rows[8], uint8_t cols[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Ex3_Lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"F:\Coding Apps\STM32\STM32CudeIDE 1.7\Workspace\LAB-VXL\LAB2\Ex3_Lab2\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ex3_Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+F:\Coding Apps\STM32\STM32CudeIDE 1.7\STM32CudeIDE_1.19.0\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\arm-none-eabi\bin\ld.exe: warning: Ex3_Lab2.elf has a LOAD segment with RWX permissions
+Finished building target: Ex3_Lab2.elf
+ 
+arm-none-eabi-size  Ex3_Lab2.elf 
+arm-none-eabi-objdump -h -S Ex3_Lab2.elf  > "Ex3_Lab2.list"
+arm-none-eabi-objcopy  -O ihex Ex3_Lab2.elf  "Ex3_Lab2.hex"
+   text	   data	    bss	    dec	    hex	filename
+   8460	     20	   1676	  10156	   27ac	Ex3_Lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ex3_Lab2.hex
+ 
+Finished building: Ex3_Lab2.list
+ 
+17:30:53 **** Incremental Build of configuration Debug for project Ex3_Lab2 ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:237:8: warning: 'shift_matrix_left_circular' defined but not used [-Wunused-function]
+  237 |   void shift_matrix_left_circular(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:233:8: warning: 'shift_matrix_left_insert_blank' defined but not used [-Wunused-function]
+  233 |   void shift_matrix_left_insert_blank(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:155:8: warning: 'transpose8x8_rows_to_cols' defined but not used [-Wunused-function]
+  155 |   void transpose8x8_rows_to_cols(const uint8_t rows[8], uint8_t cols[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Ex3_Lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"F:\Coding Apps\STM32\STM32CudeIDE 1.7\Workspace\LAB-VXL\LAB2\Ex3_Lab2\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ex3_Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+F:\Coding Apps\STM32\STM32CudeIDE 1.7\STM32CudeIDE_1.19.0\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\arm-none-eabi\bin\ld.exe: warning: Ex3_Lab2.elf has a LOAD segment with RWX permissions
+Finished building target: Ex3_Lab2.elf
+ 
+arm-none-eabi-size  Ex3_Lab2.elf 
+arm-none-eabi-objdump -h -S Ex3_Lab2.elf  > "Ex3_Lab2.list"
+arm-none-eabi-objcopy  -O ihex Ex3_Lab2.elf  "Ex3_Lab2.hex"
+   text	   data	    bss	    dec	    hex	filename
+   8460	     20	   1676	  10156	   27ac	Ex3_Lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ex3_Lab2.hex
+ 
+Finished building: Ex3_Lab2.list
+ 
+17:31:04 **** Incremental Build of configuration Debug for project Ex3_Lab2 ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:237:8: warning: 'shift_matrix_left_circular' defined but not used [-Wunused-function]
+  237 |   void shift_matrix_left_circular(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:233:8: warning: 'shift_matrix_left_insert_blank' defined but not used [-Wunused-function]
+  233 |   void shift_matrix_left_insert_blank(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:155:8: warning: 'transpose8x8_rows_to_cols' defined but not used [-Wunused-function]
+  155 |   void transpose8x8_rows_to_cols(const uint8_t rows[8], uint8_t cols[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Ex3_Lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"F:\Coding Apps\STM32\STM32CudeIDE 1.7\Workspace\LAB-VXL\LAB2\Ex3_Lab2\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ex3_Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+F:\Coding Apps\STM32\STM32CudeIDE 1.7\STM32CudeIDE_1.19.0\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\arm-none-eabi\bin\ld.exe: warning: Ex3_Lab2.elf has a LOAD segment with RWX permissions
+Finished building target: Ex3_Lab2.elf
+ 
+arm-none-eabi-size  Ex3_Lab2.elf 
+arm-none-eabi-objdump -h -S Ex3_Lab2.elf  > "Ex3_Lab2.list"
+arm-none-eabi-objcopy  -O ihex Ex3_Lab2.elf  "Ex3_Lab2.hex"
+   text	   data	    bss	    dec	    hex	filename
+   8460	     20	   1676	  10156	   27ac	Ex3_Lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ex3_Lab2.hex
+ 
+Finished building: Ex3_Lab2.list
+ 
+17:31:21 **** Incremental Build of configuration Debug for project Ex3_Lab2 ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:237:8: warning: 'shift_matrix_left_circular' defined but not used [-Wunused-function]
+  237 |   void shift_matrix_left_circular(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:233:8: warning: 'shift_matrix_left_insert_blank' defined but not used [-Wunused-function]
+  233 |   void shift_matrix_left_insert_blank(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:155:8: warning: 'transpose8x8_rows_to_cols' defined but not used [-Wunused-function]
+  155 |   void transpose8x8_rows_to_cols(const uint8_t rows[8], uint8_t cols[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Ex3_Lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"F:\Coding Apps\STM32\STM32CudeIDE 1.7\Workspace\LAB-VXL\LAB2\Ex3_Lab2\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ex3_Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+F:\Coding Apps\STM32\STM32CudeIDE 1.7\STM32CudeIDE_1.19.0\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\arm-none-eabi\bin\ld.exe: warning: Ex3_Lab2.elf has a LOAD segment with RWX permissions
+Finished building target: Ex3_Lab2.elf
+ 
+arm-none-eabi-size  Ex3_Lab2.elf 
+arm-none-eabi-objdump -h -S Ex3_Lab2.elf  > "Ex3_Lab2.list"
+arm-none-eabi-objcopy  -O ihex Ex3_Lab2.elf  "Ex3_Lab2.hex"
+   text	   data	    bss	    dec	    hex	filename
+   8460	     20	   1676	  10156	   27ac	Ex3_Lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ex3_Lab2.hex
+ 
+Finished building: Ex3_Lab2.list
+ 
+17:31:33 **** Incremental Build of configuration Debug for project Ex3_Lab2 ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:237:8: warning: 'shift_matrix_left_circular' defined but not used [-Wunused-function]
+  237 |   void shift_matrix_left_circular(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:233:8: warning: 'shift_matrix_left_insert_blank' defined but not used [-Wunused-function]
+  233 |   void shift_matrix_left_insert_blank(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:155:8: warning: 'transpose8x8_rows_to_cols' defined but not used [-Wunused-function]
+  155 |   void transpose8x8_rows_to_cols(const uint8_t rows[8], uint8_t cols[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Ex3_Lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"F:\Coding Apps\STM32\STM32CudeIDE 1.7\Workspace\LAB-VXL\LAB2\Ex3_Lab2\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ex3_Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+F:\Coding Apps\STM32\STM32CudeIDE 1.7\STM32CudeIDE_1.19.0\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\arm-none-eabi\bin\ld.exe: warning: Ex3_Lab2.elf has a LOAD segment with RWX permissions
+Finished building target: Ex3_Lab2.elf
+ 
+arm-none-eabi-size  Ex3_Lab2.elf 
+arm-none-eabi-objdump -h -S Ex3_Lab2.elf  > "Ex3_Lab2.list"
+arm-none-eabi-objcopy  -O ihex Ex3_Lab2.elf  "Ex3_Lab2.hex"
+   text	   data	    bss	    dec	    hex	filename
+   8460	     20	   1676	  10156	   27ac	Ex3_Lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ex3_Lab2.hex
+ 
+Finished building: Ex3_Lab2.list
+ 
+17:33:15 **** Incremental Build of configuration Debug for project Ex3_Lab2 ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:237:8: warning: 'shift_matrix_left_circular' defined but not used [-Wunused-function]
+  237 |   void shift_matrix_left_circular(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:233:8: warning: 'shift_matrix_left_insert_blank' defined but not used [-Wunused-function]
+  233 |   void shift_matrix_left_insert_blank(uint8_t buf[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:155:8: warning: 'transpose8x8_rows_to_cols' defined but not used [-Wunused-function]
+  155 |   void transpose8x8_rows_to_cols(const uint8_t rows[8], uint8_t cols[8]){
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Ex3_Lab2.elf" @"objects.list"   -mcpu=cortex-m3 -T"F:\Coding Apps\STM32\STM32CudeIDE 1.7\Workspace\LAB-VXL\LAB2\Ex3_Lab2\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Ex3_Lab2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+F:\Coding Apps\STM32\STM32CudeIDE 1.7\STM32CudeIDE_1.19.0\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344\tools\arm-none-eabi\bin\ld.exe: warning: Ex3_Lab2.elf has a LOAD segment with RWX permissions
+Finished building target: Ex3_Lab2.elf
+ 
+arm-none-eabi-size  Ex3_Lab2.elf 
+arm-none-eabi-objdump -h -S Ex3_Lab2.elf  > "Ex3_Lab2.list"
+arm-none-eabi-objcopy  -O ihex Ex3_Lab2.elf  "Ex3_Lab2.hex"
+   text	   data	    bss	    dec	    hex	filename
+   8460	     20	   1676	  10156	   27ac	Ex3_Lab2.elf
+Finished building: default.size.stdout
+ 
+Finished building: Ex3_Lab2.hex
+ 
+Finished building: Ex3_Lab2.list
  
