@@ -2799,3 +2799,8 @@ java.lang.Exception: The project description file (.project) for 'Ex2_Lab2' is m
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-09-29 19:33:57.972
 !MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.core.resources 2 2 2025-09-29 19:38:51.343
+!MESSAGE Save operation warnings.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2025-09-29 19:38:51.343
+!MESSAGE The project description file (.project) for 'LAB1' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
