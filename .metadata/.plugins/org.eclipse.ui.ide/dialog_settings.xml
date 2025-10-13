@@ -16,6 +16,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="F:\Coding Apps\STM32\STM32CudeIDE 1.7\Workspace\LAB3"/>
 			<item value="F:\Coding Apps\STM32\STM32CudeIDE 1.7\Workspace"/>
 			<item value="F:\Coding Apps\STM32\STM32CudeIDE 1.7\Workspace\LAB-VXL"/>
 			<item value="F:\Coding Apps\STM32\STM32CudeIDE 1.7\Workspace\LAB1\Analog_Clock"/>
