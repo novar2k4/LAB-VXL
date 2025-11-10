@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;Scheduler/Core/Inc/timer.h&apos;" deleteContents="false" description="Delete resource &apos;Scheduler/Core/Inc/timer.h&apos;" element1="/Scheduler/Core/Inc/timer.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1762505892389"/>
+</session>

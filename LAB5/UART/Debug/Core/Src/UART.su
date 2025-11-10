@@ -1,0 +1,4 @@
+UART.c:11:6:HandleReset	8	static
+UART.c:27:6:HandleADC	8	static
+UART.c:32:6:HandleOK	8	static
+UART.c:47:6:UART_fsm	120	static
